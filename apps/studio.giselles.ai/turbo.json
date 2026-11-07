@@ -1,0 +1,20 @@
+{
+	"extends": ["//"],
+	"tasks": {
+		"dev": {
+			"passThroughEnv": ["*_FLAG", "MAINTENANCE_MODE"],
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env.development.local",
+				".env.local",
+				".env.development",
+				".env"
+			]
+		},
+		"test": {},
+		"typegen": {},
+		"check-types": {
+			"dependsOn": ["^check-types", "typegen"]
+		}
+	}
+}

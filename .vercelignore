@@ -1,0 +1,11 @@
+*.md
+.claude
+.cursor
+.DS_Store
+.env.example
+.github
+.turbo
+.zed
+biome.json
+docs
+LICENSE

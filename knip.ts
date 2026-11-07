@@ -1,0 +1,57 @@
+import type { KnipConfig } from "knip";
+
+const config: KnipConfig = {
+	biome: false,
+	ignoreIssues: {
+		"apps/studio.giselles.ai/emails/**/*.tsx": ["duplicates"],
+	},
+	workspaces: {
+		"apps/playground": {
+			ignoreDependencies: [
+				"@aws-sdk/client-s3",
+				"@supabase/realtime-js",
+				"@supabase/supabase-js",
+				"happy-dom",
+				"jsdom",
+				"pg",
+			],
+		},
+		"apps/studio.giselles.ai": {
+			entry: ["emails/**/*.tsx"],
+			ignore: [
+				"scripts/**",
+				"trigger.config.ts",
+				"trigger/investigate-private-key-job.ts",
+			],
+			// Ignore deps that are resolved dynamically in next.config, used only at build/runtime,
+			// or intentionally pinned to force a safe peer resolution (e.g. webpack)
+			ignoreDependencies: [
+				"@aws-sdk/client-s3",
+				"@embedpdf/pdfium",
+				"import-in-the-middle",
+				"require-in-the-middle",
+				"@react-email/preview-server",
+				"pino-pretty",
+				"prettier",
+				"shiki",
+				"webpack",
+			],
+		},
+		"internal-packages/workflow-designer-ui": {
+			ignoreDependencies: ["tailwindcss"],
+			ignore: [
+				// Not currently used in the product, but kept as a reference implementation for future use
+				"src/editor/properties-panel/content-generation-node-properties-panel/**/*",
+				// Will be used in the future
+				"src/editor/properties-panel/app-entry-node-properties-panel/app-icon-select.tsx",
+			],
+		},
+		"packages/rag": {
+			ignore: ["src/chunker/__fixtures__/code-sample.ts"],
+		},
+	},
+	ignore: ["turbo/generators/config.ts"],
+	ignoreBinaries: ["vercel"],
+};
+
+export default config;
